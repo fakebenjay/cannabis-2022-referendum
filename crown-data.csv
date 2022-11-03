@@ -1,0 +1,52 @@
+﻿state,statusRaw,status,date,billName,diedDate,tooltipText
+Alabama,Introduced February 2021,introduced,February 2021,"HB87 (February), SB265 (February), SB375 (April)",,"introduced <strong>HB87</strong> and <strong>SB265</strong> in February, and SB375 in April. "
+Alaska,No bill in 2021 session,no-bill,2021 session,,,
+Arizona,Introduced February 2021,introduced,February 2021,HB2593 (February),,introduced <strong>HB2593</strong> in February. 
+Arkansas,Introduced April 2021,introduced,April 2021,HB1871 (April),,introduced <strong>HB1871</strong> in April.
+California,Enacted July 2019,enacted,July 2019,SB188,,
+Colorado,Enacted March 2020,enacted,March 2020,HB20-1048,,
+Connecticut,Enacted March 2021,enacted,March 2021,HB6515,,
+Delaware,"Passed by legislature April 2021, awaiting governor action",passed,April 2021,SB32 (January),,legislature passed <strong>SB32</strong> in April. It's currently awaiting action from the governor. 
+Florida,Introduced March 2021,introduced,March 2021,"HB179 (January), SB476 (January)",,introduced <strong>HB179</strong> and <strong>SB476</strong> in January.
+Georgia,Introduced February 2021,expired,February 2021,"HB230 (February), SB61 (February)",April,introduced <strong>HB230</strong> and <strong>SB61</strong> in February. 
+Hawaii,No bill in 2021 session,no-bill,2021 session,,,
+Idaho,No bill in 2021 session,no-bill,2021 session,,,
+Illinois,Introduced February 2021,introduced,February 2021,"HB3499 (February), SB1847 (February)",,introduced <strong>HB3499</strong> and <strong>SB1847</strong> in February. 
+Indiana,Introduced January 2021,introduced,January 2021,HB1501 (January),,introduced <strong>HB1501</strong> in January. 
+Iowa,Introduced February 2021,introduced,February 2021,HF471 (February),,introduced <strong>HF471</strong> in February.
+Kansas,Introduced February 2021,introduced,February 2021,"HB2424 (February), SB130 (February)",,introduced <strong>HB2424</strong> and <strong>SB130</strong> in February.
+Kentucky,Introduced January 2021,expired,January 2021,HB43 (January),March,introduced <strong>HB43</strong> in January.
+Louisiana,Introduced March 2021,introduced,March 2021,"HB189 (March), HB382 (April), SB61 (March)",,"introduced <strong>HB189</strong> and <strong>SB61</strong> in March, and <strong>HB382</strong> in April. "
+Maine,Introduced February 2021,introduced,February 2021,LD598 (February),,introduced <strong>LD598</strong> in February.
+Maryland,Enacted October 2020,enacted,October 2020,HB1444,,
+Massachusetts,Introduced January 2021,introduced,January 2021,"HD447 (January), SD1407 (February), SD2349 (February)",,"introduced <strong>HD447</strong> in January, and <strong>SD1407</strong> and <strong>SD2349</strong> in February."
+Michigan,Introduced February 2021,introduced,February 2021,HB4275 (February),,introduced <strong>HB4275</strong> in February. 
+Minnesota,Introduced February 2021,introduced,February 2021,"HF1315 (February), SF1273 (February)",,introduced <strong>HF1315</strong> and <strong>SF1273</strong> in February. 
+Mississippi,"Introduced January 2021, died in committee",died,January 2021,HB1189 (January),February,introduced <strong>HB1189</strong> in January.
+Missouri,Introduced January 2021,introduced,January 2021,"HB420 (January), HB282 (January),  HB503 (January), HB1066 (February), HB1309 (February), HB1314 (February), SB145 (January)",,"introduced <strong>HB420</strong>, <strong>HB282</strong>, <strong>HB503</strong> and <strong>SB145</strong> in January, and <strong>HB1066</strong>, <strong>HB1309</strong> and <strong>HB1314</strong> in February. "
+Montana,No bill in 2021 session,no-bill,2021 session,,,
+Nebraska,Introduced January 2021,introduced,January 2021,LB451 (January),,introduced <strong>LB451</strong> in January. 
+Nevada,Introduced March 2021,introduced,March 2021,"SB199 (March), SB327 (March)",,introduced <strong>SB199</strong> and <strong>SB327</strong> in March. 
+New Hampshire,Introduced January 2021,introduced,January 2021,HB359 (January),,Hampshire introduced <strong>HB359</strong> in January. 
+New Jersey,Enacted December 2019,enacted,December 2019,S3945,,
+New Mexico,Enacted April 2021,enacted,April 2021,SB80,,
+New York,Enacted July 2019,enacted,July 2019,S6209,,
+North Carolina,Introduced February 2021,introduced,February 2021,"H170 (February), S165 (February)",,introduced <strong>H170</strong> and <strong>S165</strong> in February. 
+North Dakota,No bill in 2021 session,no-bill,2021 session, ,,
+Ohio,No bill in 2021 session,expired,2021 session (<strong>HB535</strong> was introduced in <strong>March 2020</strong> and died when that legislative session ended.),HB535,,
+Oklahoma,Introduced February 2021,introduced,February 2021,HB1657 (February),,introduced <strong>HB1657</strong> in February. 
+Oregon,Introduced January 2021,introduced,January 2021,HB2935 (January),,introduced <strong>HB2935</strong> in January.
+Pennsylvania,Introduced April 2021,introduced,April 2021,"HB1066 (April), SB531 (April)",,introduced <strong>HB1066</strong> and <strong>SB531</strong> in April.
+Rhode Island,Introduced March 2021,introduced,March 2021,S539 (March),,introduced <strong>S539</strong> in March.
+South Carolina,Introduced January 2021,introduced,January 2021,H3238 (January),,introduced <strong>H3238</strong> in January.
+South Dakota,Introduced January 2021,expired,January 2021,SB90 (January),March,introduced <strong>SB90</strong> in January.
+Tennessee,Introduced January 2021,introduced,January 2021,"HB204 (January), SB136 (January)",,introduced <strong>HB204</strong> and <strong>SB136</strong> in January.
+Texas,Introduced November 2020,introduced,November 2020,"HB392 (November 2020), HB38 (November 2020), HB1113 (January), SB77 (November 2020)",,"introduced <strong>HB392</strong>, <strong>HB38</strong> and <strong>SB77</strong> in November, and <strong>HB1113</strong> in January."
+Utah,Introduced January 2021,expired,January 2021,SB80 (January),March,introduced <strong>SB80</strong> in January.
+Vermont,Introduced January 2021,introduced,January 2021,S35 (January),,introduced <strong>S35</strong> in January.
+Virginia,Enacted March 2020,enacted,March 2020,HB1514,,
+Washington,Enacted March 2020,enacted,March 2020,HB2602,,
+West Virginia,Introduced February 2021,introduced,February 2021,"HB2698 (February), SB108 (February)",,introduced <strong>HB2698</strong> and <strong>SB108</strong> in February.
+Wisconsin,Introduced March 2021,introduced,March 2021,"AB141 (March), SB251 (March)",,introduced <strong>AB141</strong> and <strong>SB251</strong> in March.
+Wyoming,No bill in 2021 session,no-bill,2021 session,,,
+Washington D.C.,Introduced February 2021,introduced,February 2021,B24-0062 (February),,introduced <strong>B24-0062</strong> in February.
