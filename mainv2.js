@@ -134,9 +134,9 @@ function leftTT() {
 }
 
 //Load in GeoJSON data
-d3.csv("data.csv")
+d3.csv("datav2.csv")
   .then(function(data) {
-    d3.json("us-states.json")
+    d3.json("https://assets.law360news.com/1545000/1545182/us-states.json")
       .then(function(json) {
         //Merge the referendum data and GeoJSON
         //Loop through once for each data value
@@ -338,5 +338,98 @@ d3.csv("data.csv")
           .on('mousemove', mousemove)
           .on("mouseout", mouseout);
 
+        return json
+      })
+      .then((rawData) => {
+
+        var data = rawData.features.filter((d) => {
+          if (typeof d !== 'string' && !!d.properties.value.lat) {
+            return d
+          }
+        })
+
+        var radCoeff = d3.scaleLinear()
+          .domain([200, 640])
+          .range([2, 12])
+          .clamp(true)
+
+        var color = d3.scaleOrdinal()
+          .domain(['no', 'yes'])
+          .range(['#d3d3d3', '#6ba292'])
+
+        function radius(datum) {
+          return radCoeff(rawWidth) * (Math.sqrt(datum) / document.querySelector('#article-body').offsetWidth)
+        }
+
+        var anglePI = (45) * (Math.PI / 180);
+        var angleCoeff = 55
+        var angleCoords = {
+          'x1': Math.round(angleCoeff + Math.sin(anglePI) * angleCoeff) + '%',
+          'y1': Math.round(angleCoeff + Math.cos(anglePI) * angleCoeff) + '%',
+          'x2': Math.round(angleCoeff + Math.sin(anglePI + Math.PI) * angleCoeff) + '%',
+          'y2': Math.round(angleCoeff + Math.cos(anglePI + Math.PI) * angleCoeff) + '%',
+        }
+
+        let pieShop = svg.append('g')
+          .attr('class', 'pie-shop')
+
+        let rad = rawWidth / 16
+        let arc = d3.arc()
+          .outerRadius(rad / 2.5)
+          .innerRadius(0);
+
+        let pie = d3.pie()
+          .value(function(d) {
+            return d.pct;
+          })
+          .sort((b, a) => {
+            return b.name > a.name
+          });
+
+        data.forEach((d) => {
+          let slices = [{
+              'state': d.properties.value.state,
+              'name': 'yes',
+              'val': d.properties.value.yes,
+              'pct': d.properties.value.yes / 100,
+              'lat': d.properties.value.lat,
+              'lng': d.properties.value.lng
+            },
+            {
+              'state': d.properties.value.state,
+              'name': 'no',
+              'val': (100 - d.properties.value.yes),
+              'pct': (100 - d.properties.value.yes) / 100,
+              'lat': d.properties.value.lat,
+              'lng': d.properties.value.lng
+            }
+          ]
+
+          let emptyPies = pieShop.selectAll("pie")
+            .data(pie(slices))
+            .enter()
+            .append("g")
+            .attr('stroke', d => d.data.state === 'Colorado' ? 'black' : 'black')
+            .attr('stroke-width', 1)
+            .attr("class", (d) => {
+              return `arc ${d.data.name} ${d.data.state.toLowerCase().replaceAll(' ','-')}`
+            })
+            .attr('transform', (d) => {
+              return `translate(${projection([d.data.lng, d.data.lat])[0]},${projection([d.data.lng, d.data.lat])[1]})`
+            })
+
+          emptyPies.append("path")
+            .attr("d", arc)
+            .style("fill", d => d.data.state === 'Colorado' && d.data.name === 'yes' ? '#654f6f' : color(d.data.name))
+
+          data.forEach((d) => {
+            pieShop.selectAll(`.arc.${d.properties.name.toLowerCase().replaceAll(' ','-')}`)
+              .datum(d)
+              .on("mouseover", mouseover)
+              .on('mousemove', mousemove)
+              .on("mouseout", mouseout);
+          })
+
+        })
       });
   });
