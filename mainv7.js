@@ -453,6 +453,8 @@ d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/ma
                 return numeral(d.data.pct).format('0[.]0%') + ' ' + d.data.result
               }
             })
+            .attr('fill', 'red')
+            .attr('stroke', d => d.data.pct < .50 ? 'red' : 'black')
             .style('font-weight', 'normal')
             .style('font-size', '10pt')
             .attr("x", function(d) {
@@ -476,7 +478,6 @@ d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/ma
               return Array.from(this.parentElement.classList).includes('no') ? 'none' : 'block'
             })
             .style('text-anchor', d => d.data.state === 'Maryland' ? 'middle' : d.data.state === 'Colorado' ? 'end' : 'start')
-            .style('color', 'black')
 
           // emptyPies.append('rect')
           //   .attr("x", function(d) {
