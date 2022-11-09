@@ -455,7 +455,7 @@ d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/ma
               if (d.data.val == 0) {
                 return `${d.data.pollsClose} p.m. EST`
               } else {
-                var resultChar = d.data.result == 'Y' ? '✓' : d.data.result == 'N' ? '✗' : ''
+                var resultChar = d.data.result == 'Y' ? ' ✓' : d.data.result == 'N' ? ' ✗' : ''
 
                 return numeral(d.data.pct).format('0[.]0%') + resultChar
               }
