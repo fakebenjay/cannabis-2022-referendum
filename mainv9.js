@@ -51,7 +51,10 @@ function tooltipText(values) {
 }
 
 function color(d) {
-  //Get data value
+  if (!!d.properties.value.pollsClose && (d.properties.value.noVotes > d.properties.value.yesVotes)) {
+    return '#F4F4F4'
+  }
+
   var values = d.properties.value;
   if (d.properties.name == 'Washington D.C.') {
     return dcTexture.url()
