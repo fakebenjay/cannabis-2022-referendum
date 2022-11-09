@@ -397,7 +397,7 @@ d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/ma
               'lng': d.properties.value.lng,
               'pollsClose': d.properties.value.pollsClose,
               'result': d.properties.value.result,
-              'lastUpdated': d.properties.value.result,
+              'lastUpdated': d.properties.value.lastUpdated,
               'pctIn': d.properties.value.pctIn
             },
             {
@@ -409,7 +409,7 @@ d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/ma
               'lng': d.properties.value.lng,
               'pollsClose': d.properties.value.pollsClose,
               'result': d.properties.value.result,
-              'lastUpdated': d.properties.value.result,
+              'lastUpdated': d.properties.value.lastUpdated,
               'pctIn': d.properties.value.pctIn
             }
           ]
@@ -446,11 +446,13 @@ d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/ma
             .attr('fill', 'white')
 
           emptyPies.append('text')
-            .text(function(d) {
+            .html(function(d) {
               if (d.data.val == 0) {
                 return `${d.data.pollsClose} p.m. EST`
               } else {
-                return numeral(d.data.pct).format('0[.]0%') + ' ' + d.data.result
+                var resultChar = d.data.result == 'Y' ? ' <span style="background-color:green:color:white;padding:1px;">✓</span>' : d.data.result == 'N' ? ' <span style="background-color:red:color:white;padding:1px;">✗</span>' : ''
+                debugger
+                return numeral(d.data.pct).format('0[.]0%') + resultChar
               }
             })
             .attr('fill', 'red')
