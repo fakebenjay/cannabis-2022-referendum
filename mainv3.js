@@ -31,7 +31,8 @@ svg.call(dcTexture);
 
 function tooltipText(values) {
   if (!!values.detail) {
-    return `<h1 style="padding:0px;margin:0px;"><strong>${values.state}</strong></h1>` + values.detail
+    var live = values.pctIn == 0 ? `Polls close at ${values.pollsClose} p.m. EST` : `<div><strong>Yes</strong>: ${numeral(values.yesVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.yesVotes).format('0,0')} votes)</div><div><strong>No</strong>: ${numeral(values.noVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.noVotes).format('0,0')} votes)</div><div>${values.pctIn}% <strong>reporting</strong></div><div><strong>Last updated</strong>: ${values.lastUpdated} EST</div>`
+    return `<h1 style="padding:0px;margin:0px;"><strong>${values.state}</strong></h1>` + `<br/><strong class="tt-subhed">Live results${values.result}</strong><div>${live}</div>` + values.detail
   } else {
     if (values.state === 'Washington D.C.') {
       return "Cannabis is <strong>decriminalized</strong> and legal for <strong style='background-color:#6ba292;color:white;'>&nbsp;recreational&nbsp;</strong> purposes in <strong>" + values.state + "</strong>.<br/><br/>However, Congress controls the District's budget, and as of the 2022 federal budget, has refused to allow the establishment of a regulated market."
@@ -134,7 +135,7 @@ function leftTT() {
 }
 
 //Load in GeoJSON data
-d3.csv("datav2.csv")
+d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/master/datav3.csv?token=GHSAT0AAAAAABZJF5634GE4AJZIEYHNRBNSY3LBAEQ")
   .then(function(data) {
     d3.json("https://assets.law360news.com/1545000/1545182/us-states.json")
       .then(function(json) {
@@ -390,18 +391,26 @@ d3.csv("datav2.csv")
           let slices = [{
               'state': d.properties.value.state,
               'name': 'yes',
-              'val': d.properties.value.yes,
-              'pct': d.properties.value.yes / 100,
+              'val': d.properties.value.yesVotes,
+              'pct': (d.properties.value.yesVotes + d.properties.value.noVotes) == 0 ? 0 : d.properties.value.yesVotes / (parseFloat(d.properties.value.yesVotes) + parseFloat(d.properties.value.noVotes)),
               'lat': d.properties.value.lat,
-              'lng': d.properties.value.lng
+              'lng': d.properties.value.lng,
+              'pollsClose': d.properties.value.pollsClose,
+              'result': d.properties.value.result,
+              'lastUpdated': d.properties.value.result,
+              'pctIn': d.properties.value.pctIn
             },
             {
               'state': d.properties.value.state,
               'name': 'no',
-              'val': (100 - d.properties.value.yes),
-              'pct': (100 - d.properties.value.yes) / 100,
+              'val': d.properties.value.noVotes,
+              'pct': (d.properties.value.yesVotes + d.properties.value.noVotes) == 0 ? 1 : d.properties.value.noVotes / (parseFloat(d.properties.value.yesVotes) + parseFloat(d.properties.value.noVotes)),
               'lat': d.properties.value.lat,
-              'lng': d.properties.value.lng
+              'lng': d.properties.value.lng,
+              'pollsClose': d.properties.value.pollsClose,
+              'result': d.properties.value.result,
+              'lastUpdated': d.properties.value.result,
+              'pctIn': d.properties.value.pctIn
             }
           ]
 
@@ -421,6 +430,84 @@ d3.csv("datav2.csv")
           emptyPies.append("path")
             .attr("d", arc)
             .style("fill", d => d.data.state === 'Colorado' && d.data.name === 'yes' ? '#654f6f' : color(d.data.name))
+
+          emptyPies.append("rect")
+            .attr("x", -radCoeff(rawWidth))
+            .attr("y", radCoeff(rawWidth) * 1.5)
+            .attr('height', '8px')
+            .attr('width', d => (2 * radCoeff(rawWidth)) * (parseFloat(d.data.pctIn) / 100) + 'px')
+            .attr('fill', 'green')
+
+          emptyPies.append("rect")
+            .attr('x', d => -radCoeff(rawWidth) + (2 * radCoeff(rawWidth)) * (parseFloat(d.data.pctIn) / 100) + 'px')
+            .attr("y", radCoeff(rawWidth) * 1.5)
+            .attr('height', '8px')
+            .attr('width', d => 2 * radCoeff(rawWidth) * ((100 - parseFloat(d.data.pctIn)) / 100) + 'px')
+            .attr('fill', 'white')
+
+          emptyPies.append('text')
+            .text(function(d) {
+              if (d.data.val == 0) {
+                return `${d.data.pollsClose} p.m. EST`
+              } else {
+                return numeral(d.data.pct).format('0[.]0%') + ' ' + d.data.result
+              }
+            })
+            .style('font-weight', 'normal')
+            .style('font-size', '10pt')
+            .attr("x", function(d) {
+              if (d.data.state.includes('Dakota') || d.data.state === 'Arkansas' || d.data.state === 'Missouri') {
+                var coeff = d.data.state.includes('Dakota') ? 3.7 : 3
+                return radCoeff(rawWidth) * coeff
+              } else if (d.data.state === 'Colorado') {
+                return -radCoeff(rawWidth) * 3.1
+              } else {
+                return -radCoeff(rawWidth) * 0
+              }
+            })
+            .attr("y", function(d) {
+              if (d.data.state.includes('Dakota') || d.data.state === 'Arkansas' || d.data.state === 'Colorado' || d.data.state === 'Missouri') {
+                return -radCoeff(rawWidth) * 0
+              } else {
+                return -radCoeff(rawWidth) * 2
+              }
+            })
+            .style('display', function(d) {
+              return Array.from(this.parentElement.classList).includes('no') ? 'none' : 'block'
+            })
+            .style('text-anchor', d => d.data.state === 'Maryland' ? 'middle' : d.data.state === 'Colorado' ? 'end' : 'start')
+            .style('color', 'black')
+
+          // emptyPies.append('rect')
+          //   .attr("x", function(d) {
+          //     var text = this.parentElement.querySelector('text')
+          //     var w = (text.getBoundingClientRect().width * 1.1) / 2
+          //
+          //     if (d.data.state === 'South Dakota' || d.data.state === 'Arkansas') {
+          //       return -radCoeff(rawWidth) * 2 - (this.getBoundingClientRect().width / 2) - w
+          //     } else {
+          //       return -radCoeff(rawWidth) * 0 - w
+          //     }
+          //   })
+          //   .attr("y", function(d) {
+          //     var text = this.parentElement.querySelector('text')
+          //     var h = (text.getBoundingClientRect().width * 1.1) / 2
+          //
+          //     if (d.data.state === 'South Dakota' || d.data.state === 'Arkansas') {
+          //       return -radCoeff(rawWidth) * 0 - h + 16
+          //     } else {
+          //       return -radCoeff(rawWidth) * 2 - h + 16
+          //     }
+          //   })
+          //   .attr('width', function(d) {
+          //     var text = this.parentElement.querySelector('text')
+          //     return text.getBoundingClientRect().width * 1.1
+          //   })
+          //   .attr('height', function(d) {
+          //     var text = this.parentElement.querySelector('text')
+          //     return text.getBoundingClientRect().height * 1.1
+          //   })
+          //   .style('fill', 'grey')
 
           data.forEach((d) => {
             pieShop.selectAll(`.arc.${d.properties.name.toLowerCase().replaceAll(' ','-')}`)
