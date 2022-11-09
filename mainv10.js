@@ -51,7 +51,7 @@ function tooltipText(values) {
 }
 
 function color(d) {
-  if (!!d.properties.value.pollsClose && (d.properties.value.noVotes > d.properties.value.yesVotes)) {
+  if (!!d.properties.value.pollsClose && (parseInt(d.properties.value.noVotes) > parseInt(d.properties.value.yesVotes))) {
     return '#F4F4F4'
   }
 
