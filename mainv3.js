@@ -135,7 +135,7 @@ function leftTT() {
 }
 
 //Load in GeoJSON data
-d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/master/datav3.csv?token=GHSAT0AAAAAABZJF563DEYLLZ4XRZ5I3PMWY3LBBJQ")
+d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/master/datav3.csv")
   .then(function(data) {
     d3.json("https://assets.law360news.com/1545000/1545182/us-states.json")
       .then(function(json) {
