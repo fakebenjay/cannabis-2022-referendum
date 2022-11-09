@@ -31,7 +31,7 @@ svg.call(dcTexture);
 
 function tooltipText(values) {
   if (!!values.detail) {
-    var live = values.pctIn == 0 ? `Polls close at ${values.pollsClose} p.m. EST` : `<div><strong>Yes</strong>: ${numeral(values.yesVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.yesVotes).format('0,0')} votes)</div><div><strong>No</strong>: ${numeral(values.noVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.noVotes).format('0,0')} votes)</div><div>${values.pctIn}% <strong>reporting</strong></div><div><strong>Last updated</strong>: ${values.lastUpdated} EST</div>`
+    var live = values.pctIn == 0 ? `Polls close at ${values.pollsClose} p.m. EST` : `<div><strong>Yes</strong>: ${numeral(values.yesVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.yesVotes).format('0,0')} votes)</div><div><strong>No</strong>: ${numeral(values.noVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.noVotes).format('0,0')} votes)</div><div>${values.pctIn}% <strong>reporting</strong></div><div><strong>Last updated</strong>: ${values.lastUpdated} EST${values.state === 'Maryland' ? '<br/>(Election day precincts only)':''}</div>`
     return `<h1 style="padding:0px;margin:0px;"><strong>${values.state}</strong></h1>` + `<br/><strong class="tt-subhed">Live results${values.result}</strong><div>${live}</div>` + values.detail
   } else {
     if (values.state === 'Washington D.C.') {
