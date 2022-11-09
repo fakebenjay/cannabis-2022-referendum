@@ -31,8 +31,10 @@ svg.call(dcTexture);
 
 function tooltipText(values) {
   if (!!values.detail) {
+    var resultChar = values.result == 'Y' ? ' <span style="background-color:green:color:white;padding:1px;">✓</span>' : values.result == 'N' ? ' <span style="background-color:red:color:white;padding:1px;">✗</span>' : ''
+
     var live = values.pctIn == 0 ? `Polls close at ${values.pollsClose} p.m. EST` : `<div><strong>Yes</strong>: ${numeral(values.yesVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.yesVotes).format('0,0')} votes)</div><div><strong>No</strong>: ${numeral(values.noVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.noVotes).format('0,0')} votes)</div><div>${values.pctIn + '%'} <strong>reporting</strong></div><div><strong>Last updated</strong>: ${values.lastUpdated} EST</div>`
-    return `<h1 style="padding:0px;margin:0px;"><strong>${values.state}</strong></h1>` + `<br/><strong class="tt-subhed">Live results${values.result}</strong><div>${live}</div>` + values.detail
+    return `<h1 style="padding:0px;margin:0px;"><strong>${values.state}</strong></h1>` + `<br/><strong class="tt-subhed">Live results${resultChar}</strong><div>${live}</div>` + values.detail
   } else {
     if (values.state === 'Washington D.C.') {
       return "Cannabis is <strong>decriminalized</strong> and legal for <strong style='background-color:#6ba292;color:white;'>&nbsp;recreational&nbsp;</strong> purposes in <strong>" + values.state + "</strong>.<br/><br/>However, Congress controls the District's budget, and as of the 2022 federal budget, has refused to allow the establishment of a regulated market."
@@ -451,7 +453,7 @@ d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/ma
                 return `${d.data.pollsClose} p.m. EST`
               } else {
                 var resultChar = d.data.result == 'Y' ? ' <span style="background-color:green:color:white;padding:1px;">✓</span>' : d.data.result == 'N' ? ' <span style="background-color:red:color:white;padding:1px;">✗</span>' : ''
-                debugger
+
                 return numeral(d.data.pct).format('0[.]0%') + resultChar
               }
             })
