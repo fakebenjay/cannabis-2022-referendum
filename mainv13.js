@@ -33,7 +33,7 @@ function tooltipText(values) {
   if (!!values.detail) {
     var resultChar = values.result == 'Y' ? ' <span style="background-color:green;color:white;padding:1px 1px 1px 0;">&nbsp;✓&nbsp;</span>' : values.result == 'N' ? ' <span style="background-color:red;color:white;padding:1px;">&nbsp;✗&nbsp;</span>' : ''
 
-    var live = values.pctIn == 0 ? `Polls close at ${values.pollsClose} p.m. EST` : `<div><strong>Yes</strong>: ${numeral(values.yesVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.yesVotes).format('0,0')} votes)</div><div><strong>No</strong>: ${numeral(values.noVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.noVotes).format('0,0')} votes)</div><div>${values.pctIn + '%'} <strong>reporting</strong></div><div><strong>Last updated</strong>: ${values.lastUpdated} EST</div>`
+    var live = values.pctIn == 0 ? `Polls close at ${values.pollsClose} p.m. EST` : `<div><strong>Yes</strong>: ${numeral(values.yesVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.yesVotes).format('0,0')} votes)</div><div><strong>No</strong>: ${numeral(values.noVotes/(parseFloat(values.yesVotes)+parseFloat(values.noVotes))).format('0[.]0%')} (${numeral(values.noVotes).format('0,0')} votes)</div><div>${values.pctIn + '%'} <strong>reporting</strong></div><div><strong>Last updated</strong>: ${values.lastUpdated}</div>`
     return `<h1 style="padding:0px;margin:0px;"><strong>${values.state}</strong></h1>` + `<br/><strong class="tt-subhed">Live results${resultChar}</strong><div>${live}</div>` + values.detail
   } else {
     if (values.state === 'Washington D.C.') {
@@ -460,8 +460,9 @@ d3.csv("https://raw.githubusercontent.com/fakebenjay/cannabis-2022-referendum/ma
                 return numeral(d.data.pct).format('0[.]0%') + resultChar
               }
             })
-            .attr('fill', 'red')
-            .attr('stroke', d => d.data.pct < .50 ? 'red' : 'black')
+            .attr('fill', d => d.data.pct < .50 ? '#db4325' : '#006164')
+            .attr('stroke', 'black')
+            .attr('stroke-width', '0.5')
             .style('font-weight', 'normal')
             .style('font-size', '10pt')
             .attr("x", function(d) {
